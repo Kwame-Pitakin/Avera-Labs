@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('combo_name')->unique();
             $table->unsignedBigInteger('laboratory_id');
-            $table->unsignedBigInteger('combo_category_id');
+            $table->string('combo_tags');
             $table->decimal('combo_price');
             $table->integer('turn_around_time')->nullable();
             $table->string('combo_target_gender');

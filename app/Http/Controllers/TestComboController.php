@@ -57,7 +57,7 @@ class TestComboController extends Controller
         $request->validate(
             [
                 'combo_name' => 'required|unique:test_combos',
-                'combo_category' => ['required'],
+                'combo_tags' => ['required'],
                 'combo_sample' => ['required'],
                 'turn_around_time' => ['required', 'numeric',],
                 'combo_test' => 'required',
@@ -70,7 +70,7 @@ class TestComboController extends Controller
         //  Getting request field 
         $laboratory_id = $request->laboratory_id;
         $combo_name = $request->combo_name;
-        $combo_category = $request->combo_category;
+        $combo_tags = $request->combo_tags;
         $combo_sample = $request->combo_sample;
         $turn_around_time = $request->turn_around_time;
         $combo_test = $request->combo_test;
@@ -83,7 +83,7 @@ class TestComboController extends Controller
         $testCombo = new TestCombo();
         $testCombo->combo_name = $combo_name;
         $testCombo->laboratory_id = $laboratory_id;
-        $testCombo->combo_category_id = $combo_category;
+        $testCombo->combo_tags = $combo_tags;
         $testCombo->turn_around_time = $turn_around_time;
         $testCombo->combo_price = $combo_price;
         $testCombo->accurate_from = $accurate_from;

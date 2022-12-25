@@ -286,11 +286,12 @@
                                         {{ $comboDetails->combo_description }}
 
                                     <div class="ms-auto">
-                                        <a href="javascript:;" class="me-1">
+                                        <x-combo-tags :comboTagsCsv="$comboDetails->combo_tags"/>
+                                        {{-- <a href="javascript:;" class="me-1">
                                             <span class="badge bg-label-success ">
                                                 {{ $comboDetails->combo_category_id }}
                                             </span>
-                                        </a>
+                                        </a> --}}
 
                                         <span class=" me-1 tooltip-help" style="float: right" data-bs-toggle="tooltip"
                                             data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
@@ -378,7 +379,7 @@
                                         </div>
                                         <div class="ms-auto">
                                             <a href="javascript:;" class="me-1">
-                                                <span class="badge bg-label-warning">{{ $comboDetails->combo_price }}
+                                                <span class="badge bg-label-warning">GHC &nbsp;{{ $comboDetails->combo_price }}
                                                 </span>
                                             </a>
                                         </div>

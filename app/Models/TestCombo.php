@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TestCombo extends Model
 {
     use HasFactory;
-    protected $fillable = ['combo_name','combo_category_id','combo_price','turn_around_time','combo_target_gender','combo_description'.'accurate_from','combo_status'];
+    protected $fillable = ['combo_name','combo_tags','combo_price','turn_around_time','combo_target_gender','combo_description'.'accurate_from','combo_status'];
 
 
     public function laboratory()

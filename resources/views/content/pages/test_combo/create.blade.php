@@ -37,38 +37,38 @@
             <br>
             <!-- Multi Column with Form Separator -->
             <div class="card mb-4">
-                <span class="card-header" style="font-weight:600;">Create New Laboratory</span>
+                <span class="card-header" style="font-weight:600;">Add new combo to &nbsp;<span style="color: #237381"> {{ $laboratories->lab_name }}</span> </span>
                 <form method="POST" action="{{ route('testcombo.store') }}">
                     @csrf
                     <div id="company-info" class="content">
-                      <input type="text" value="{{ $laboratories->id }}" name="laboratory_id" readonly>
+                      <input type="text" value="{{ $laboratories->id }}" name="laboratory_id" readonly hidden>
                         <div class="row g-4" style="margin: 0rem 1rem">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="mb-3 col-sm-6">
                                         <label for="combo_name" class="form-label blabel ">Combo Name</label>
                                         <input type="text" id="combo_name" name="combo_name" class="form-control"
-                                            placeholder="Eg: Enter Combo Name" value="{{ old('combo_name') }}" autocomplete="off" />
+                                            placeholder="Eg: Enter Combo Name" value="{{ old('combo_name') }}" autocomplete="off" required />
                                         @error('combo_name')
                                             <p class="error">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mb-3 col-sm-6">
-                                        <label for="combo_category" class="form-label blabel ">Combo Category</label>
+                                        <label for="combo_tags" class="form-label blabel ">Combo Category</label>
                                         <select id="multicol-country" class="select2 form-select" data-allow-clear="true"
-                                            name="combo_category">
+                                            name="combo_tags" required>
                                             <option value="">Select</option>
                                             <option value="1">Australia</option>
                                             <option value="2">Bangladesh</option>
                                             <option value="3">Belarus</option>
                                         </select>
-                                        @error('combo_category')
+                                        @error('combo_tags')
                                             <p class="error">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mb-3 col-sm-6 select2-primary">
                                         <label for="combo_test" class="form-label blabel">Combo Test</label>
-                                        <select id="combo_test" class="select2 form-select" multiple name="combo_test[]">
+                                        <select id="combo_test" class="select2 form-select" multiple name="combo_test[]" required>
                                           <option value="">Select</option>
 
                                           @foreach ($laboratories->tests as $comboTest )
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="mb-3 col-sm-6 select2-primary">
                                         <label for="combo_sample" class="form-label blabel">Combo Sample</label>
-                                        <select id="combo_sample" class="select2 form-select" multiple name="combo_sample[]">
+                                        <select id="combo_sample" class="select2 form-select" multiple name="combo_sample[]" required>
                                             <option value="">select</option>
                                            @foreach ($samples as  $sample)
                                            <option value="{{ $sample->id }}">{{ $sample->sample_name}}</option>
@@ -107,7 +107,7 @@
                                                     </span>
                                                     <input type="number" step="any" id="combo_price" name="combo_price"
                                                         class="form-control" placeholder="Enter Combo Price"
-                                                        value="{{ old('combo_price') }}" autocomplete="off" />
+                                                        value="{{ old('combo_price') }}" autocomplete="off" required />
                                                 </div>
                                                 @error('combo_price')
                                                     <p class="error">{{ $message }}</p>
@@ -125,7 +125,7 @@
                                                     <input type="number" step="any" id="turn_around_time"
                                                         name="turn_around_time" class="form-control"
                                                         placeholder=" Enter turn Around Time"
-                                                        value="{{ old('turn_around_time') }}" autocomplete="off" />
+                                                        value="{{ old('turn_around_time') }}" autocomplete="off" required/>
                                                 </div>
                                                 @error('turn_around_time')
                                                     <p class="error">{{ $message }}</p>
@@ -141,7 +141,7 @@
                                                     Gender</label>
 
                                                 <select id="combo_target_gender" class="select2 form-select"
-                                                    data-allow-clear="true" name="combo_target_gender">
+                                                    data-allow-clear="true" name="combo_target_gender" required>
                                                     <option value="">Select</option>
                                                     <option value="1">male</option>
                                                     <option value="2">Female</option>
@@ -163,7 +163,7 @@
                                                     <input type="number" step="any" id="accurate_from"
                                                         name="accurate_from" class="form-control"
                                                         placeholder=" Enter turn Around Time"
-                                                        value="{{ old('accurate_from') }}" />
+                                                        value="{{ old('accurate_from') }}" required />
                                                 </div>
                                                 @error('accurate_from')
                                                     <p class="error">{{ $message }}</p>
@@ -177,11 +177,19 @@
                                     <div class="mb-3 col-sm-6">
                                         <label for="combo_description" class="form-label blabel">Brief
                                             Combo description</label>
-                                        <textarea class="form-control" id="combo_description" rows="3" maxlength="150"
-                                            name="combo_description">
+                                        <textarea class="form-control" id="combo_description" rows="2" maxlength="150"
+                                            name="combo_description" required>
                                             {{ old('combo_description') }}
                                         </textarea>
                                         @error('combo_description')
+                                            <p class="error">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="combo_tags" class="form-label blabel ">Combo Tags (comma Separated)</label>
+                                        <input type="text" id="combo_tags" name="combo_tags" class="form-control"
+                                            placeholder="Eg: STI,LIVER,BLOOD,KIDNEY" value="{{ old('combo_tags') }}" autocomplete="off" required />
+                                        @error('combo_tags')
                                             <p class="error">{{ $message }}</p>
                                         @enderror
                                     </div>
