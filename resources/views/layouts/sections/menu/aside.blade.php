@@ -55,7 +55,7 @@
              <ul class="menu-inner py-1">
                  <!-- Dashboards -->
                  <li class="menu-item">
-                     <a href="dashboard.html" class="menu-link">
+                     <a href="/agentdashboard" class="menu-link">
                          <i class="menu-icon tf-icons bx bx-home-circle"></i>
                          <div data-i18n="Dashboard">Dashboard</div>
                      </a>

@@ -22,6 +22,29 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          fullname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter fullname'
+              },
+              stringLength: {
+                min: 3,
+                message: 'fullname must be more than 3 characters'
+              }
+            }
+          },
+          phone: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your phone number'
+              },
+              stringLength: {
+                min: 9,
+                max:10,
+                message: 'enter a valid phone number'
+              }
+            }
+          },
           email: {
             validators: {
               notEmpty: {
@@ -54,7 +77,31 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          'login-password': {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your password'
+              }
+            }
+          },
           'confirm-password': {
+            validators: {
+              notEmpty: {
+                message: 'Please confirm password'
+              },
+              identical: {
+                compare: function () {
+                  return formAuthentication.querySelector('[name="password"]').value;
+                },
+                message: 'The password and its confirm are not the same'
+              },
+              stringLength: {
+                min: 8,
+                message: 'Password must be more than 6 characters'
+              }
+            }
+          },
+          'password-confirmation': {
             validators: {
               notEmpty: {
                 message: 'Please confirm password'

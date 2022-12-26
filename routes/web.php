@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TestsController;
 use App\Http\Controllers\FallbackController;
+use App\Http\Controllers\TestComboController;
 use App\Http\Controllers\LaboratoriesController;
 use App\Http\Controllers\Laboratory_TestController;
-use App\Http\Controllers\TestComboController;
-use App\Http\Controllers\TestsController;
 
 
 /*
@@ -19,9 +21,33 @@ use App\Http\Controllers\TestsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/',[UserController::class,'login'])->name('user.login');
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('/agentdashboard', function () {
+    return view('content.pages.dashboards.agentDashboard');
 });
+
+// creating users //
+
+// show user register/create form
+Route::get('/register',[UserController::class,'create'])->name('user.create');
+
+// creating new user
+Route::post('/users',[UserController::class,'store'])->name('user.store');
+
+
+// show login form
+Route::get('/',[UserController::class,'login'])->name('user.login');
+
+// Logout
+Route::post('/logout',[UserController::class,'logout'])->name('user.logout');
+
+
 
 // All laboratories
 Route::get('/laboratories', [LaboratoriesController::class,'index'])->name('laboratories.index');
@@ -113,3 +139,6 @@ Route::get('labcombos', function(){
 Route::get('testshow', function(){
     return view('content.pages.testshow');
 });
+
+
+

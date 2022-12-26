@@ -10,7 +10,6 @@
             position: absolute;
             right: 0;
             z-index: 100;
-
         }
     </style>
 

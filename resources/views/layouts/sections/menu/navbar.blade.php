@@ -21,40 +21,7 @@
                 <!-- /Search -->
 
                 <ul class="navbar-nav flex-row align-items-center ms-auto">
-                  <!-- Language -->
-                  {{-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                    <i class="fi fi-gh fis rounded-circle fs-3 me-1"></i>
-
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    </a> 
-                     <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="en">
-                          <i class="fi fi-gh fis rounded-circle fs-4 me-1"></i>
-                          <span class="align-middle">English</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
-                          <i class="fi fi-fr fis rounded-circle fs-4 me-1"></i>
-                          <span class="align-middle">French</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="de">
-                          <i class="fi fi-de fis rounded-circle fs-4 me-1"></i>
-                          <span class="align-middle">German</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="pt">
-                          <i class="fi fi-pt fis rounded-circle fs-4 me-1"></i>
-                          <span class="align-middle">Portuguese</span>
-                        </a>
-                      </li>
-                    </ul> 
-                  </li> --}}
-                  <!--/ Language -->
+               
 
                   <!-- Style Switcher -->
                   <li class="nav-item me-2 me-xl-0">
@@ -419,7 +386,7 @@
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <span class="fw-semibold d-block lh-1">John Doe</span>
+                              <span class="fw-semibold d-block lh-1">{{ auth()->user()->fullname }}</span>
                               <small>Admin</small>
                             </div>
                           </div>
@@ -476,10 +443,14 @@
                         <div class="dropdown-divider"></div>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="auth-login-cover.html" >
-                          <i class="bx bx-power-off me-2"></i>
-                          <span class="align-middle">Log Out</span>
-                        </a>
+                        <form action="{{ route('user.logout') }}" method="POST">
+                          @csrf
+                          <button type="submit" class="dropdown-item"  >
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span>
+                          </button>
+                        </form>
+                       
                       </li>
                     </ul>
                   </li>
