@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Laboratory_Test;
 use App\Models\Sample;
 use App\Models\TestCombo;
+use Illuminate\Support\Facades\Auth;
 
 class LaboratoriesController extends Controller
 {
@@ -18,6 +19,7 @@ class LaboratoriesController extends Controller
      */
     public function index()
     {
+       
 
         return view(
             'content.pages.laboratories.index',
@@ -67,6 +69,7 @@ class LaboratoriesController extends Controller
 
         Laboratory::create(
             [
+                'user_id'=> auth()->id(),
                 'lab_name' => $request->lab_name,
                 'lab_email' => $request->lab_email,
                 'lab_phone' => $request->lab_phone,
@@ -148,13 +151,8 @@ class LaboratoriesController extends Controller
         $request->validate(
             [
                 'lab_name' => 'required|max:100|unique:laboratories,lab_name,' . $id,
-                // 'lab_location' => 'required',
-                // 'lab_address' => 'required',
                 'lab_email' => 'required|max:150|unique:laboratories,lab_email,' . $id,
-                // 'lab_email' => ['required','max:150', 'unique:laboratories,lab_email,'.$id ],
                 'lab_phone' => ['required', 'unique:laboratories,lab_phone,' . $id],
-                // 'lab_description' => 'required',
-                // 'lab_logo_path' => [ 'mimes:jpg,png,jpeg','unique:laboratories,lab_logo_path,'.$id],
                 'lab_address' => 'required',
                 'latitude' => ['required', 'numeric', 'between:-90,90', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
                 'longitude' => ['required', 'numeric', 'between:-180,180', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -185,7 +183,7 @@ class LaboratoriesController extends Controller
                 ]
             );
 
-            return redirect(route('laboratories.index'))->with('flush_message', 'laboratory has been updated successfully!!');
+            return redirect(route('laboratories.show', $id))->with('flush_message', 'laboratory has been updated successfully!!');
         } else {
 
 
@@ -209,7 +207,7 @@ class LaboratoriesController extends Controller
 
             );
 
-            return redirect(route('laboratories.index'))->with('flush_message', 'laboratory has been updated successfully!!');
+            return redirect(route('laboratories.show', $id))->with('flush_message', 'laboratory has been updated successfully!!');
         }
     }
 

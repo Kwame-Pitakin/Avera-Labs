@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('laboratories', function (Blueprint $table) {
             $table->id();
             $table->string('lab_name')->unique();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('lab_address');
             $table->decimal('latitude', 6,4)->nullable();
             $table->decimal('longitude', 7,4)->nullable();

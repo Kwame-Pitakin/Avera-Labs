@@ -145,7 +145,7 @@
                                     <i class="fi fi-gh fis rounded-circle fs-3 me-1"></i> &nbsp
                                     (+233)</span>
                                 <input class="form-control mobile-number" type="number" id="phone" name="phone"
-                                    placeholder="202 555 0111" value="{{ old('phone') }}" required />
+                                    placeholder="202 555 0111" min="9" max="10" value="{{ old('phone') }}" required />
                             </div>
                             @error('phone')
                             <p class="error">{{ $message }}</p>

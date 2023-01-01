@@ -1,6 +1,12 @@
 @extends('layouts.auth-Layout.authlayout')
 
 @section('content')
+<style>
+    .error {
+            color: red;
+            font-size: 5px;
+        }
+</style>
 <div class="authentication-wrapper authentication-cover">
     <div class="authentication-inner row m-0">
       <!-- /Left Text -->
@@ -89,18 +95,22 @@
           <br>
           <!-- <p class="mb-4">Please sign-in to your account and start the adventure</p> -->
   
-          <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+          <form id="loginAuthentication" class="mb-3" action="{{ route('user.authenticate') }}" method="POST">
+            @csrf
             <div class="mb-3">
               <label for="email" class="form-label">Email or Username</label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
                 id="email"
                 name="email"
                 placeholder="Enter your email"
                 autofocus
-                {{ old('email') }}
+                value="{{ old('email')  }}" 
               />
+              @error('email')
+              <p class="error">{{ $message }}</p>
+                @enderror
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -118,13 +128,18 @@
                   type="password"
                   id="login-password"
                   class="form-control"
-                  name="login-password"
+                  name="password"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                   aria-describedby="password"
-                  {{ old('login-password') }}
+                  required
+                  {{ old('password') }}
                 />
+               
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
               </div>
+              @error('password')
+              <p class="error">{{ $message }}</p>
+            @enderror
             </div>
             <div class="mb-3">
                 <div class="form-check">
@@ -135,7 +150,7 @@
                     </label>
                 </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">Sign in</button>
+            <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
           </form>
   
           <p class="text-center">

@@ -13,7 +13,7 @@ class Laboratory_Test extends Model
 
     protected $table = 'laboratory_test';
 
-    protected $fillable = ['laboratory_id','test_id','turn_around_time','test_price'];
+    protected $fillable = ['laboratory_id','test_id','turn_around_time','test_price',];
 
     public function lab()
     {

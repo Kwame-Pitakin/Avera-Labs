@@ -14,6 +14,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //  show loginn form
     public function login()
     {
         return view('auth.login');
@@ -62,6 +64,25 @@ class UserController extends Controller
         auth()->login($user);
 
         return redirect('/agentdashboard')->with('message','Welcome to averalabs ');
+    }
+
+
+    // login authentication
+
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email'=>    ['required','email'],
+            'password' => [ 'required']
+        ]);
+
+        if (auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+            
+            return redirect('/agentdashboard')->with('message','Welcome to averalabs ');
+        }
+
+        return back()->withErrors(['email'=>'Invalid credentials','password'=>'Invalid Credentials']);
     }
 
     // logout

@@ -386,7 +386,8 @@
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <span class="fw-semibold d-block lh-1">{{ auth()->user()->fullname }}</span>
+                              <span class="fw-semibold d-block lh-1">{{ auth()->user()->fullname }}</span>                              
+                             
                               <small>Admin</small>
                             </div>
                           </div>
