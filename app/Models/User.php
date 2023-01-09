@@ -22,7 +22,9 @@ class User extends Authenticatable
         'fullname',
         'email',
         'password',
-        'phone'
+        'phone',
+        'role_id',
+        'avatar'
     ];
 
     /**
@@ -49,5 +51,10 @@ class User extends Authenticatable
 
     public function laboratories(){
         return $this->hasMany(Laboratory::class, 'user_id');
+    }
+
+     public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
  */
-class User_RoleFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,8 +23,6 @@ class User_RoleFactory extends Factory
                 'Front Desk',
                 'Lab Technician',
                 'Lab Patient'
-                
-
 
             ]),
             'status'=>1,

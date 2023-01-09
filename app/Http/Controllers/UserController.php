@@ -51,7 +51,8 @@ class UserController extends Controller
                 new isValidPassword(),
             ],
             'phone' => ['required', Rule::unique('users','phone') ],
-            'terms'=> ['required']
+            'terms'=> ['required'],
+            
         ]);
 
         // hush password
@@ -107,7 +108,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('content.pages.user_profile.show');
+
     }
 
     /**
@@ -118,7 +120,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('content.pages.user_profile.edit');
     }
 
     /**

@@ -36,9 +36,20 @@ Route::get('/agentdashboard', function () {
 
 // show user register/create form
 Route::get('/register',[UserController::class,'create'])->name('user.create')->middleware('guest');
-
 // creating new user
 Route::post('/users',[UserController::class,'store'])->name('user.store');
+
+
+
+//Edit User Data
+Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('user.edit')->middleware('auth');
+
+// updating user data
+Route::patch('/users/{id}',[UserController::class,'update'])->name('user.update')->middleware('auth');
+
+// single user profile 
+Route::get('users/{id}', [UserController::class,'show'])->name('user.show')->middleware('auth');
+
 
 
 // show login form

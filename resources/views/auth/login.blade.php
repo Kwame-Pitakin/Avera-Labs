@@ -1,6 +1,7 @@
 @extends('layouts.auth-Layout.authlayout')
 
 @section('content')
+
 <style>
     .error {
             color: red;
@@ -98,7 +99,7 @@
           <form id="loginAuthentication" class="mb-3" action="{{ route('user.authenticate') }}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="email" class="form-label">Email or Username</label>
+              <label for="email" class="form-label">Email</label>
               <input
                 type="email"
                 class="form-control"
