@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -108,7 +109,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('content.pages.user_profile.show');
+        return view('content.pages.user_profile.show',
+        
+        [
+            // 'users' => User::with('role')->get(),
+        ]
+    );
     }
 
     /**

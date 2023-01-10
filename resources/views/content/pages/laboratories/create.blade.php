@@ -147,42 +147,7 @@
                                             <p class="error">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    {{-- 
-                            <div class="mb-3 col-12">
-                                <label for="billingAddress" class="form-label">Billing Address</label>
-                                <input type="text" class="form-control" id="billingAddress"
-                                    name="billingAddress" placeholder="Billing Address" />
-                            </div> --}}
-                                    {{-- <div class="mb-3 col-sm-6">
-                                <label for="state" class="form-label">State</label>
-                                <input class="form-control" type="text" id="state" name="state"
-                                    placeholder="California" />
-                            </div> --}}
-                                    {{-- <div class="mb-3 col-sm-6">
-                                <label for="zipCode" class="form-label">Zip Code</label>
-                                <input type="text" class="form-control zip-code" id="zipCode"
-                                    name="zipCode" placeholder="231465" maxlength="6" />
-                            </div> --}}
-                                    {{-- <div class="mb-3 col-sm-6">
-                                <div class="input-groupp">
-                                    <label class="form-label blabel" for="inputGroupFile01">Upload Company
-                                        Logo</label>
-                                    <input type="file" class="form-control" id="inputGroupFile01" />
-                                </div>
-                            </div> --}}
-
-                                    {{-- 
-                            <div class="mb-3 col-sm-6">
-                                <label for="Logo" class="form-label blabel">Company logo</label>
-
-                                <select id="country" class="form-select select2" name="country">
-                                    <option selected>USA</option>
-                                    <option>Canada</option>
-                                    <option>UK</option>
-                                    <option>Germany</option>
-                                    <option>France</option>
-                                </select>
-                            </div> --}}
+              
                                 </div>
                                 <div class="mt-1">
                                     <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>

@@ -42,9 +42,7 @@
             class="d-block h-auto ms-0 ms-sm-4 rounded-3 user-profile-img"
             onerror="this.onerror=null;this.src='/assets/img/avatars/1.png';"
           />
-          {{-- @php
-            dd(Auth::user()->avatar)
-          @endphp --}}
+       
           </div>
           <div class="flex-grow-1 mt-3 mt-sm-5">
             <div
@@ -55,8 +53,13 @@
                 <ul
                   class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2"
                 >
-                  <li class="list-inline-item fw-semibold"><i class="bx bx-pen"></i> Role: Lab Agent</li>
-                  <li class="list-inline-item fw-semibold"><i class="bx bx-map"></i>Location: </li>
+                {{-- @foreach ($users as $user) --}}
+                <li class="list-inline-item fw-semibold"><i class="bx bx-pen"></i> Role: {{ Auth::user()->role->role_name }}</li>
+
+                {{-- @endforeach --}}
+
+              
+                  <li class="list-inline-item fw-semibold"><i class="bx bx-map"></i>Location:&nbsp;{{ Auth::user()->user_location }} </li>
                   <li class="list-inline-item fw-semibold">
                     <i class="bx bx-calendar-alt"></i>Joined:&nbsp;{{ Auth::user()->created_at->isoFormat('MMM Do YYYY') }}
                   </li>
@@ -112,10 +115,10 @@
               <i class="bx bx-check"></i><span class="fw-semibold mx-2">Status:</span> <span>Active</span>
             </li>
             <li class="d-flex align-items-center mb-3">
-              <i class="bx bx-star"></i><span class="fw-semibold mx-2">Role:</span> <span>Lab agent</span>
+              <i class="bx bx-star"></i><span class="fw-semibold mx-2">Role:</span> <span>{{ Auth::user()->role->role_name }}</span>
             </li>
             <li class="d-flex align-items-center mb-3">
-              <i class="bx bx-flag"></i><span class="fw-semibold mx-2">Location:</span> <span>Accra</span>
+              <i class="bx bx-flag"></i><span class="fw-semibold mx-2">Location:</span> <span>&nbsp;{{ Auth::user()->user_location }} </span>
             </li>
             <li class="d-flex align-items-center mb-3">
               <i class="bx bx-detail"></i><span class="fw-semibold mx-2">Languages:</span>

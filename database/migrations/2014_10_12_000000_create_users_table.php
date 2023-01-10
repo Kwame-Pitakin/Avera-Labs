@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('user_location')->nullable();
             $table->string('user_Ghanapost_gps')->nullable();
-            $table->foreignId('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
