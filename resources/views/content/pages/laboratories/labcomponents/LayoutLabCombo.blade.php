@@ -16,7 +16,7 @@ data-template="vertical-menu-template-no-customizer"
 
   <meta name="description" content="" />
 
-  <title> Avera Labs | Secured, Confidential, and Descrete</title>
+  <title>Avera Labs - @yield('title')</title>
 
    <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />

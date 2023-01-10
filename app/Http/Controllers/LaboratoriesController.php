@@ -163,6 +163,8 @@ class LaboratoriesController extends Controller
             ]
         );
 
+        
+
         $image = $request->lab_logo_path;
 
         if ($image != null) {

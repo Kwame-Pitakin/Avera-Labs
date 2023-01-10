@@ -1,4 +1,5 @@
 @extends('layouts.masterlayout')
+@section('title', 'Edit Laboratory')
 
 @section('content')
     <style>

@@ -1,5 +1,8 @@
 @extends('content.pages.tests.testslayout')
 
+@section('title', 'Laboratory Details')
+
+
 @section('content')
     @include('content._partials.stylesScripts.labDetailsStylesScript')
 

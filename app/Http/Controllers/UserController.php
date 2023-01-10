@@ -42,17 +42,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $formFields = $request->validate([
-            'fullname'=> ['required','min:6'],
-            'email'=>    ['required','email',Rule::unique('users','email')],
+            'fullname' => ['required', 'min:6'],
+            'email' =>    ['required', 'email', Rule::unique('users', 'email')],
             'password' => [
                 'required',
                 'confirmed',
                 'string',
                 new isValidPassword(),
             ],
-            'phone' => ['required', Rule::unique('users','phone') ],
-            'terms'=> ['required'],
-            
+            'phone' => ['required', Rule::unique('users', 'phone')],
+            'terms' => ['required'],
+
         ]);
 
         // hush password
@@ -64,7 +64,7 @@ class UserController extends Controller
         // login
         auth()->login($user);
 
-        return redirect('/agentdashboard')->with('message','Welcome to averalabs ');
+        return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
     }
 
 
@@ -73,17 +73,17 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $formFields = $request->validate([
-            'email'=>    ['required','email'],
-            'password' => [ 'required']
+            'email' =>    ['required', 'email'],
+            'password' => ['required']
         ]);
 
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
-            
-            return redirect('/agentdashboard')->with('message','Welcome to averalabs ');
+
+            return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
         }
 
-        return back()->withErrors(['email'=>'Invalid credentials','password'=>'Invalid Credentials']);
+        return back()->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid Credentials']);
     }
 
     // logout
@@ -94,7 +94,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('message','Log out Successfull');
+        return redirect('/login')->with('message', 'Log out Successfull');
     }
 
 
@@ -109,7 +109,6 @@ class UserController extends Controller
     public function show($id)
     {
         return view('content.pages.user_profile.show');
-
     }
 
     /**
@@ -130,6 +129,46 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateProfile(Request $request, $id)
+    {
+        $request->validate([
+            'fullname' => ['required', 'min:6'],
+            'phone' => ['required', 'unique:users,phone,' . $id],
+            'agent_address' => ['required'],
+            'agent_Ghanapost_gps' => ['required'],
+            'avatar' => ['image', 'mimes:jpg,png,jpeg']
+        ]);
+
+        $avatar = $request->avatar;
+
+        if ($avatar != null) {
+            $avataName = time() . '-' . $request->fullname . '.' . $avatar->extension();
+
+            $avatar_path = $avatar->move('images', $avataName);
+        }
+
+
+       
+
+        User::where('id', $id)->update(
+            [
+                'fullname' => $request->fullname,
+                'phone' => $request->phone,
+                'user_location' => $request->agent_address,
+                'user_Ghanapost_gps' => $request->agent_Ghanapost_gps,
+                'avatar' => $avatar_path ?? auth()->user()->avatar,
+            ]
+        );
+
+        return redirect(route('user.show', $id))->with('flush_message', 'profile has been updated successfully!!');
+
+
+        // dd($request);
+
+    }
+
+
+
     public function update(Request $request, $id)
     {
         //

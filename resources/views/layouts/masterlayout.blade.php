@@ -15,7 +15,7 @@ data-template="vertical-menu-template-no-customizer"
   />
   <meta name="description" content="" />
 
-  <title> Avera Labs | Secured, Confidential, and Descrete</title>
+  <title>Avera Labs | @yield('title')</title>
 
   <!-- alpine js-->
   <script src="//unpkg.com/alpinejs" defer></script>

@@ -1,4 +1,5 @@
 @extends('layouts.masterlayout')
+@section('title', 'Laboratory Agent Dashboard')
 
 @section('content')
 <style>

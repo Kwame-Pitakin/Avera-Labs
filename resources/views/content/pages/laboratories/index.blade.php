@@ -1,4 +1,6 @@
 @extends('layouts.masterlayout')
+@section('title', 'All Laboratories')
+
 
 @section('content')
 

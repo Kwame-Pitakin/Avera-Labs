@@ -1,4 +1,5 @@
 @extends('layouts.masterlayout')
+@section('title', 'Agent Profile')
 
 @section('content')
     <style>
@@ -36,11 +37,14 @@
           <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
 
             <img
-            src="{{ Auth::user()->avatar }}"
-            alt="user image"
+            src="{{ asset(Auth::user()->avatar ) }}"
+            alt="user avatar"
             class="d-block h-auto ms-0 ms-sm-4 rounded-3 user-profile-img"
             onerror="this.onerror=null;this.src='/assets/img/avatars/1.png';"
           />
+          {{-- @php
+            dd(Auth::user()->avatar)
+          @endphp --}}
           </div>
           <div class="flex-grow-1 mt-3 mt-sm-5">
             <div

@@ -25,7 +25,8 @@ class User extends Authenticatable
         'phone',
         'role_id',
         'avatar',
-        'user_location'
+        'user_location',
+        'user_Ghanapost_gps'
     ];
 
     /**
