@@ -65,7 +65,7 @@ Route::post('/user/authenticate',[UserController::class,'authenticate'])->name('
 
 
 // Logout
-Route::post('/logout',[UserController::class,'logout'])->name('user.logout')->middleware(['auth','verified']);
+Route::post('/logout',[UserController::class,'logout'])->name('user.logout')->middleware(['auth']);
 
 
 
