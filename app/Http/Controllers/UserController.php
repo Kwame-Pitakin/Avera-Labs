@@ -16,6 +16,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+ 
+
     //  show loginn form
     public function login()
     {
@@ -53,11 +56,13 @@ class UserController extends Controller
             ],
             'phone' => ['required', Rule::unique('users', 'phone')],
             'terms' => ['required'],
+            'role_id',
 
         ]);
 
         // hush password
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['role_id'] = 3;
 
         // create user
         $user = User::create($formFields);

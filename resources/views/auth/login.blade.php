@@ -1,5 +1,7 @@
 @extends('layouts.auth-Layout.authlayout')
 
+@section('title', 'Login')
+
 @section('content')
 
 <style>

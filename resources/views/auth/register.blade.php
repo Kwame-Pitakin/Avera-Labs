@@ -1,5 +1,7 @@
 @extends('layouts.auth-Layout.authlayout')
 
+@section('title', 'Register')
+
 @section('content')
     <style>
         .blabel {
