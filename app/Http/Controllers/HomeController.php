@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function notAuthorized()
+    {
+        return view('notAuthorized');
+    }
+
+    // public function handleAdmin()
+    // {
+    //     return view('content.pages.dashboards.agentDashboard');
+    // }
 }

@@ -70,27 +70,59 @@ class UserController extends Controller
         // login
         auth()->login($user);
 
-        return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
+        // return redirect('/agentdashboard')->with('flush_messsage', 'Welcome to averalabs ');
+
+        switch (auth()->user()->role_id) {
+            case '1':
+                return redirect()->route('superadmin')->with('flush_message', 'Welcome to Super Admin Dashboard ');
+                break;
+
+
+            case '2':
+                return redirect()->route('labagent')->with('flush_message', 'Welcome to Lab Agent Dashboard ');
+                break;
+
+
+            case '3':
+                return redirect()->route('frontDesk')->with('flush_message', 'Welcome to Front Desk Dashboard ');
+                break;
+
+
+            case '4':
+                return redirect()->route('labTechnician')->with('flush_message', 'Welcome to Lab Technician Dashboard ');
+                break;
+
+
+            case '5':
+                return redirect()->route('patient')->with('flush_message', 'Welcome to Patient Dashboard ');
+                break;
+
+        
+
+            default:
+             return redirect()->route('notAuthorized');
+            break;
+        }
     }
 
 
     // login authentication
 
-    public function authenticate(Request $request)
-    {
-        $formFields = $request->validate([
-            'email' =>    ['required', 'email'],
-            'password' => ['required']
-        ]);
+    // public function authenticate(Request $request)
+    // {
+    //     $formFields = $request->validate([
+    //         'email' =>    ['required', 'email'],
+    //         'password' => ['required']
+    //     ]);
 
-        if (auth()->attempt($formFields)) {
-            $request->session()->regenerate();
+    //     if (auth()->attempt($formFields)) {
+    //         $request->session()->regenerate();
 
-            return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
-        }
+    //         return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
+    //     }
 
-        return back()->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid Credentials']);
-    }
+    //     return back()->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid Credentials']);
+    // }
 
     // logout
 

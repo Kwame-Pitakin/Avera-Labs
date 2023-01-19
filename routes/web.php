@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TestsController;
 use App\Http\Controllers\FallbackController;
@@ -9,7 +11,11 @@ use App\Http\Controllers\TestComboController;
 use App\Http\Controllers\LaboratoriesController;
 use App\Http\Controllers\Laboratory_TestController;
 use App\Http\Controllers\Auth\VerificationController;
-
+use App\Http\Controllers\Users\LabAgentController;
+use App\Http\Controllers\Users\LabFrontDeskController;
+use App\Http\Controllers\Users\LabPatientController;
+use App\Http\Controllers\Users\LabTechnicianController;
+use App\Http\Controllers\Users\SuperAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +29,17 @@ use App\Http\Controllers\Auth\VerificationController;
 */
 
 // Route::get('/',[UserController::class,'login'])->name('user.login');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes(['verify'=>true]);
 
+Route::get('/notAuthorized', [HomeController::class, 'notAuthorized'])->name('notAuthorized');
 
-Route::get('/agentdashboard', function () {
-    return view('content.pages.dashboards.agentDashboard');
-})->middleware(['auth','verified']);
+// Dashboards View
+Route::get('/superadmindasboard', [SuperAdminController::class, 'index'])->name('superadmin')->middleware(['auth','verified','superAdmin']);
+Route::get('/agentdashboard', [LabAgentController::class, 'index'])->name('labagent')->middleware(['auth','verified','labAgent']);
+Route::get('/frontdeskdasboard', [LabFrontDeskController::class, 'index'])->name('frontDesk')->middleware(['auth','verified','labFrontDesk']);
+Route::get('/labtechniciandashboard',[LabTechnicianController::class, 'index'])->name('labTechnician')->middleware(['auth','verified','LabTechnician']);
+Route::get('/patientdashboard', [LabPatientController::class, 'index'])->name('patient')->middleware(['auth','verified','LabPatient']);
 
 
 
@@ -47,21 +56,23 @@ Route::post('/users',[UserController::class,'store'])->name('user.store');
 
 
 //Edit User Data
-Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('user.edit')->middleware(['auth','verified']);
+Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('user.edit')->middleware(['auth','verified','superAdmin']);
 
 // updating user profile
-Route::patch('/users/{id}',[UserController::class,'updateProfile'])->name('user.updateProfile')->middleware(['auth','verified']);
+Route::patch('/users/{id}',[UserController::class,'updateProfile'])->name('user.updateProfile')->middleware(['auth','verified','superAdmin']);
 
 // single user profile 
-Route::get('users/{id}', [UserController::class,'show'])->name('user.show')->middleware(['auth','verified']);
+Route::get('users/{id}', [UserController::class,'show'])->name('user.show')->middleware(['auth','verified','superAdmin']);
 
 
 
 // show login form
 Route::get('/',[UserController::class,'login'])->name('user.login')->middleware('guest');
 Route::get('/login',[UserController::class,'login'])->middleware('guest');
-Route::post('/user/authenticate',[UserController::class,'authenticate'])->name('user.authenticate');
+// Route::post('/user/authenticate',[UserController::class,'authenticate'])->name('user.authenticate');
 
+// using login controller to authenticate login instead of what is in the user controller
+Route::post('/user/authenticate',[LoginController::class,'authenticate'])->name('user.authenticate');
 
 
 // Logout
@@ -70,23 +81,23 @@ Route::post('/logout',[UserController::class,'logout'])->name('user.logout')->mi
 
 
 // All laboratories
-Route::get('/laboratories', [LaboratoriesController::class,'index'])->name('laboratories.index')->middleware(['auth','verified']);
+Route::get('/laboratories', [LaboratoriesController::class,'index'])->name('laboratories.index')->middleware(['auth','verified','superAdmin']);
 
 // Show Create Laboratory form
-Route::get('/laboratories/create',[LaboratoriesController::class,'create'])->name('laboratories.create')->middleware(['auth','verified']);
+Route::get('/laboratories/create',[LaboratoriesController::class,'create'])->name('laboratories.create')->middleware(['auth','verified','superAdmin']);
 
 
 //Store Laboratory
-Route::post('/storelabs', [LaboratoriesController::class, 'store'])->name('laboratories.store')->middleware(['auth','verified']);
+Route::post('/storelabs', [LaboratoriesController::class, 'store'])->name('laboratories.store')->middleware(['auth','verified','superAdmin']);
 
 // Edit Laboratory Data
-Route::get('laboratories/edit/{id}', [LaboratoriesController::class,'edit'])->name('laboratories.edit')->middleware(['auth','verified']);
+Route::get('laboratories/edit/{id}', [LaboratoriesController::class,'edit'])->name('laboratories.edit')->middleware(['auth','verified','superAdmin']);
 
 //Update
-Route::patch('/laboratories/{id}',[LaboratoriesController::class,'update'])->name('laboratories.update')->middleware(['auth','verified']);
+Route::patch('/laboratories/{id}',[LaboratoriesController::class,'update'])->name('laboratories.update')->middleware(['auth','verified','superAdmin']);
 
 // single laboratory
-Route::get('laboratories/{id}',[LaboratoriesController::class,'show'])->name('laboratories.show')->middleware(['auth','verified']);
+Route::get('laboratories/{id}',[LaboratoriesController::class,'show'])->name('laboratories.show')->middleware(['auth','verified','superAdmin']);
 
 
 
@@ -95,38 +106,38 @@ Route::get('laboratories/{id}',[LaboratoriesController::class,'show'])->name('la
 // TESTS
 
 // show all tests
- Route::get('/tests',[TestsController::class,'index'])->name('tests.index')->middleware(['auth','verified']);
+ Route::get('/tests',[TestsController::class,'index'])->name('tests.index')->middleware(['auth','verified','superAdmin']);
 
 // create test
-Route::get('/tests/create', [TestsController::class,'create'])->name('tests.create')->middleware(['auth','verified']);
+Route::get('/tests/create', [TestsController::class,'create'])->name('tests.create')->middleware(['auth','verified','superAdmin']);
 
 // store created test
-Route::post('/storetests', [TestsController::class,'store'])->name('tests.store')->middleware(['auth','verified']);
+Route::post('/storetests', [TestsController::class,'store'])->name('tests.store')->middleware(['auth','verified','superAdmin']);
 
 //Edit Tests Data
-Route::get('/tests/edit/{id}',[TestsController::class,'edit'])->name('tests.edit')->middleware(['auth','verified']);
+Route::get('/tests/edit/{id}',[TestsController::class,'edit'])->name('tests.edit')->middleware(['auth','verified','superAdmin']);
 
 //update
-Route::patch('/tests/{id}',[TestsController::class,'update'])->name('tests.update')->middleware(['auth','verified']);
+Route::patch('/tests/{id}',[TestsController::class,'update'])->name('tests.update')->middleware(['auth','verified','superAdmin']);
 
 // single test show 
-Route::get('tests/{id}',[TestsController::class,'show'])->name('tests.show')->middleware(['auth','verified']);
+Route::get('tests/{id}',[TestsController::class,'show'])->name('tests.show')->middleware(['auth','verified','superAdmin']);
 
 
 // LAB TESTS
 // Adding Test to a laboratory
-Route::get('labtest/create/{id}',[Laboratory_TestController::class,'create'])->name('labtest.create')->middleware(['auth','verified']);
+Route::get('labtest/create/{id}',[Laboratory_TestController::class,'create'])->name('labtest.create')->middleware(['auth','verified','superAdmin']);
 
 // Store Test to laboratory
-Route::post('/storelabtest', [Laboratory_TestController::class,'store'])->name('labtest.store')->middleware(['auth','verified']);
+Route::post('/storelabtest', [Laboratory_TestController::class,'store'])->name('labtest.store')->middleware(['auth','verified','superAdmin']);
 
 
 
 
 // TEST COMBO
-Route::get('testcombo/create/{id}',[TestComboController::class,'create'])->name('testcombo.create')->middleware(['auth','verified']);
+Route::get('testcombo/create/{id}',[TestComboController::class,'create'])->name('testcombo.create')->middleware(['auth','verified','superAdmin']);
 
-Route::post('/testcombo',[TestComboController::class,'store'])->name('testcombo.store')->middleware(['auth','verified']);
+Route::post('/testcombo',[TestComboController::class,'store'])->name('testcombo.store')->middleware(['auth','verified','superAdmin']);
 // creating new Test combo for a lab
 
 

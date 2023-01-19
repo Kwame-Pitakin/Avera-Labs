@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Laboratory;
+
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,7 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'role_id',
         'avatar',
         'user_location',
-        'user_Ghanapost_gps'
+        'user_Ghanapost_gps',
+        'is_admin'
+
     ];
 
     /**

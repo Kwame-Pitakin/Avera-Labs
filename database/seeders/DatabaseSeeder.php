@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Role;
+// use App\Models\Role;
 use App\Models\Test;
 use App\Models\User;
 use App\Models\Sample;
@@ -12,10 +12,11 @@ use App\Models\Laboratory;
 use App\Models\Test_price;
 use App\Models\Sample_Test;
 use App\Models\Test_Sample;
+use Illuminate\Support\Str;
 use App\Models\Test_category;
 use App\Models\Laboratory_Test;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +28,33 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Role::factory(5)->create();
+        // Role::factory(5)->create();
+        DB::table('roles')->insert([
+            'role_name' => 'Super Admin',
+            'status' => 1,
+        ]);
+        
+        DB::table('roles')->insert([
+            'role_name' => 'Lab Agent',
+            'status' => 1,
+
+        ]);
+        
+        DB::table('roles')->insert([
+            'role_name' => 'Front Desk',
+            'status' => 1,
+
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => 'Lab Technician',
+            'status' => 1,
+
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => 'Lab Patient',
+            'status' => 1,
+
+        ]);
 
        $user = User::factory()->create([
             'fullname' => 'Skyller Bolingo',
@@ -36,7 +63,8 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'role_id'=>'5'
+            'role_id'=>'5',
+            'is_admin' =>'1'
         ]);
 
 
