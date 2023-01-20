@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
            return redirect()->route('superadmin');
         }
         elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 2) {
-            return redirect()->route('labAgent');
+            return redirect()->route('labagent');
         }
         elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 3) {
             return redirect()->route('frontDesk');
