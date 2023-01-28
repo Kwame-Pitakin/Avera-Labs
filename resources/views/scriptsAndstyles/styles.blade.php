@@ -39,14 +39,14 @@
 {{-- end text show styles  --}}
 
 <!-- Helpers -->
-<script src="../assets/vendor/js/helpers.js"></script>
+<script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-<script src="../assets/js/config.js"></script>
+<script src="{{ ('assets/js/config.js') }}"></script>
 
 
 
   
 
-<link rel="stylesheet" href="../assets/vendor/css/pages/app-invoice.css" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice.css') }}" />

@@ -17,8 +17,10 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        foreach (Auth::user()->roles as $role) {
+            # code...
         
-        if (Auth::check() && Auth::user()->role_id == 1) {
+        if (Auth::check() && $role->name === 'Super Admin') {
             return $next($request);
 
         }
@@ -26,5 +28,6 @@ class SuperAdmin
             return redirect()->route('user.login');
 
         }
+    }
     }
 }

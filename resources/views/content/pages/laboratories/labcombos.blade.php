@@ -1,4 +1,4 @@
-@extends('content.pages.labs.labcomponents.LayoutLabCombo')
+@extends('content.pages.tests.testslayout')
 
 @section('content')
 

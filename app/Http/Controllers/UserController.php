@@ -20,10 +20,10 @@ class UserController extends Controller
  
 
     //  show loginn form
-    public function login()
-    {
-        return view('auth.login');
-    }
+    // public function login()
+    // {
+    //     return view('auth.login');
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -32,9 +32,26 @@ class UserController extends Controller
      */
     public function create()
     {
+       
         return view('auth.register');
     }
 
+
+        // admin and lab agent creating users 
+
+        public function createUsers(){
+             $users = User::all();
+
+             $roles = Role::all();
+           
+            return view('content.pages.createdUsers.create', compact(['users','roles'])
+            // [
+            //     'users' => User::latest()->paginate(10)
+
+            // ]
+        );
+
+        }
 
 
     /**
@@ -43,6 +60,52 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //store users created by admin and lab agent creating users 
+        public function storeUsers(Request $request)
+        {
+         $request->validate([
+            'userFullname' => ['required', 'min:6'],
+            'userEmail' =>    ['required', 'email', Rule::unique('users', 'email')],
+            'avatar' => ['required','image', 'mimes:jpg,png,jpeg'],
+            'userContact' => 'required|regex:/^[0-9]{9,10}$/|unique:users,phone',
+            'userLocation'=>['required'] ,
+            'role_id' =>['required']
+
+         ]);
+
+         $avatar = $request->avatar;
+
+         if ($avatar != null) {
+             $avataName = time() . '-' . $request->userFullname . '.' . $avatar->extension();
+ 
+             $avatar_path = $avatar->move('images', $avataName);
+         }
+
+
+         User::create(
+            [
+                'fullname' => $request->userFullname ,
+                'email' => $request->userEmail ,
+                'phone' => $request->userContact ,
+                'password' => 'password',
+                'user_location' => $request->userLocation ,
+                'avatar' => $avatar_path ,
+                'role_id'=> $request->role_id,
+                'status'=>3
+            ]
+         );
+
+         return redirect()->route('user.create')->with('flush_message', 'User Created successfully');
+
+
+        }
+
+
+
+
+        // End store users created by admin and lab agent creating users 
+
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -70,59 +133,28 @@ class UserController extends Controller
         // login
         auth()->login($user);
 
-        // return redirect('/agentdashboard')->with('flush_messsage', 'Welcome to averalabs ');
-
-        switch (auth()->user()->role_id) {
-            case '1':
-                return redirect()->route('superadmin')->with('flush_message', 'Welcome to Super Admin Dashboard ');
-                break;
-
-
-            case '2':
-                return redirect()->route('labagent')->with('flush_message', 'Welcome to Lab Agent Dashboard ');
-                break;
-
-
-            case '3':
-                return redirect()->route('frontDesk')->with('flush_message', 'Welcome to Front Desk Dashboard ');
-                break;
-
-
-            case '4':
-                return redirect()->route('labTechnician')->with('flush_message', 'Welcome to Lab Technician Dashboard ');
-                break;
-
-
-            case '5':
-                return redirect()->route('patient')->with('flush_message', 'Welcome to Patient Dashboard ');
-                break;
-
-        
-
-            default:
-             return redirect()->route('notAuthorized');
-            break;
-        }
+        return redirect('/agentdashboard')->with('flush_messsage', 'Welcome to averalabs ');
+      
     }
 
 
     // login authentication
 
-    // public function authenticate(Request $request)
-    // {
-    //     $formFields = $request->validate([
-    //         'email' =>    ['required', 'email'],
-    //         'password' => ['required']
-    //     ]);
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' =>    ['required', 'email'],
+            'password' => ['required']
+        ]);
 
-    //     if (auth()->attempt($formFields)) {
-    //         $request->session()->regenerate();
+        if (auth()->attempt($formFields)) {
+            $request->session()->regenerate();
 
-    //         return redirect('/agentdashboard')->with('message', 'Welcome to averalabs ');
-    //     }
+            return redirect()->route('labagent')->with('flush_message', 'Welcome to Lab Agent Dashboard ');
+        }
 
-    //     return back()->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid Credentials']);
-    // }
+        return back()->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid Credentials']);
+    }
 
     // logout
 

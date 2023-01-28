@@ -15,6 +15,15 @@ class TestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+     function __construct()
+     {
+          $this->middleware('permission:list-tests|create-tests|edit-tests|delete-tests', ['only' => ['index','show']]);
+          $this->middleware('permission:create-tests', ['only' => ['create','store']]);
+          $this->middleware('permission:edit-tests', ['only' => ['edit','update']]);
+          $this->middleware('permission:delete-tests', ['only' => ['destroy']]);
+     }
     public function index()
     {
         return view(

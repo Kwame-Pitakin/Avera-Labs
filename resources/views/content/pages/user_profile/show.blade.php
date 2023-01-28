@@ -1,4 +1,4 @@
-@extends('layouts.masterlayout')
+@extends('content.pages.tests.testslayout')
 @section('title', 'Agent Profile')
 
 @section('content')
@@ -54,7 +54,13 @@
                   class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2"
                 >
                 {{-- @foreach ($users as $user) --}}
-                <li class="list-inline-item fw-semibold"><i class="bx bx-pen"></i> Role: {{ Auth::user()->role->role_name }}</li>
+                <li class="list-inline-item fw-semibold"><i class="bx bx-pen"></i> Role:                    @if(!empty(Auth::user()->getRoleNames()))
+                  @foreach(Auth::user()->getRoleNames() as $v)
+                     <small> {{ $v }} </small>
+                  @endforeach
+
+                @endif
+              </li>
 
                 {{-- @endforeach --}}
 
@@ -115,7 +121,13 @@
               <i class="bx bx-check"></i><span class="fw-semibold mx-2">Status:</span> <span>Active</span>
             </li>
             <li class="d-flex align-items-center mb-3">
-              <i class="bx bx-star"></i><span class="fw-semibold mx-2">Role:</span> <span>{{ Auth::user()->role->role_name }}</span>
+              <i class="bx bx-star"></i><span class="fw-semibold mx-2">Role:</span>
+               @if (!empty(Auth::user()->getRoleNames()))
+               @foreach (Auth::user()->getRoleNames() as $v)
+                   <span> {{ $v }} </span>
+               @endforeach
+
+           @endif
             </li>
             <li class="d-flex align-items-center mb-3">
               <i class="bx bx-flag"></i><span class="fw-semibold mx-2">Location:</span> <span>&nbsp;{{ Auth::user()->user_location }} </span>

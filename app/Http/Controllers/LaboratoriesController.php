@@ -12,22 +12,46 @@ use Illuminate\Support\Facades\Auth;
 
 class LaboratoriesController extends Controller
 {
+
+
+   
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+     function __construct()
+     {
+          $this->middleware('permission:list-laboratories|create-laboratories|edit-laboratories|delete-laboratories|archive-laboratories', ['only' => ['index','show']]);
+          $this->middleware('permission:create-laboratories', ['only' => ['create','store']]);
+          $this->middleware('permission:edit-laboratories', ['only' => ['edit','update']]);
+          $this->middleware('permission:delete-laboratories', ['only' => ['destroy']]);
+     }
     public function index()
     {
-       
+        foreach (Auth::user()->roles as $role) {
+            
+        }
+
+        if ($role->name === 'Super Admin' ) {
+             $laboratories = Laboratory::latest()->paginate(10); 
+        }
+        else {
+            $laboratories = Laboratory::where('user_id',Auth::user()->id )->latest()->paginate(10); 
+
+        }
+          
+        
 
         return view(
-            'content.pages.laboratories.index',
+            'content.pages.laboratories.index', compact(['laboratories'])
 
-            [
-                'laboratories' => Laboratory::latest()->paginate(10)
-            ],
-        );
+            // [
+            //     'laboratories' => Laboratory::latest()->paginate(10)
+            // ],
+        )->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -69,7 +93,7 @@ class LaboratoriesController extends Controller
 
         Laboratory::create(
             [
-                'user_id'=> auth()->id(),
+                'user_id' => auth()->id(),
                 'lab_name' => $request->lab_name,
                 'lab_email' => $request->lab_email,
                 'lab_phone' => $request->lab_phone,
@@ -99,22 +123,40 @@ class LaboratoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    { 
+        foreach (Auth::user()->roles as $role) {
+            
+        }
 
+        if ($role->name === 'Super Admin') {
+            $labDetails = Laboratory::findorfail($id);
+        }
+        else{
+            $labDetails = Laboratory::where('user_id', Auth::user()->id)->findorfail($id);
+
+        }
+
+        $labDetails = Laboratory::findorfail($id);
+
+
+        $labtests = Laboratory_Test::all();
+        $comboSample = Sample::get();
+
+        $comboDetails = TestCombo::get();
 
         return view(
-            'content.pages.laboratories.show',
+            'content.pages.laboratories.show', compact(['labtests','labDetails','comboSample','comboDetails'])
 
-            [
-                'labtests'=> Laboratory_Test::all(),
+            // [
+            //     'labtests' => Laboratory_Test::all(),
 
-                'labDetails' => Laboratory::findorfail($id),
+            //     'labDetails' => Laboratory::findorfail($id),
 
-                'comboSample' => Sample::get(),
+            //     'comboSample' => Sample::get(),
 
-                'comboDetails'=> TestCombo::get(),
-                
-            ]
+            //     'comboDetails' => TestCombo::get(),
+
+            // ]
 
         );
     }
@@ -163,7 +205,7 @@ class LaboratoriesController extends Controller
             ]
         );
 
-        
+
 
         $image = $request->lab_logo_path;
 

@@ -388,7 +388,14 @@
                             <div class="flex-grow-1">
                               <span class="fw-semibold d-block lh-1">{{ auth()->user()->fullname }}</span>                              
                              
-                              <small>{{ Auth::user()->role->role_name }}</small>
+                                @if(!empty(Auth::user()->getRoleNames()))
+                                  @foreach(Auth::user()->getRoleNames() as $v)
+                                     <small> {{ $v }} </small>
+                                  @endforeach
+
+                                @endif
+                              
+                              {{-- <small>{{ Auth::user()->role->role_name }}</small> --}}
                             </div>
                           </div>
                         </a>

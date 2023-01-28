@@ -18,15 +18,15 @@ class LabAgent
     public function handle(Request $request, Closure $next)
     {
         // return $next($request);
-        
-        if (Auth::check() && Auth::user()->role_id == 2) {
-            return $next($request);
 
+        foreach (Auth::user()->roles as $role) {
+            # code...
+
+            if (Auth::check() && $role->name === 'Lab Agent') {
+                return $next($request);
+            } else {
+                return redirect()->route('user.login');
+            }
         }
-        else{
-            return redirect()->route('user.login');
-
-        }
-
     }
 }

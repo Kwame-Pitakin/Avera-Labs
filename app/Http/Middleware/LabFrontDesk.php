@@ -18,16 +18,18 @@ class LabFrontDesk
     public function handle(Request $request, Closure $next)
     {
     
-
-        if (Auth::check() && Auth::user()->role_id == 3) {
+        foreach (Auth::user()->roles as $role) {
+            # code...
+        
+        if (Auth::check() && $role->name === 'Front Desk') {
             return $next($request);
-                        // return redirect()->route('frontDesk');
 
         }
         else{
             return redirect()->route('user.login');
 
         }
+    }
 
     
     }

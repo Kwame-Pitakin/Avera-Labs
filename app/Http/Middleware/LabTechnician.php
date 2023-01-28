@@ -18,7 +18,10 @@ class LabTechnician
     public function handle(Request $request, Closure $next)
     {
       
-        if (Auth::check() && Auth::user()->role_id == 4) {
+        foreach (Auth::user()->roles as $role) {
+           
+        
+        if (Auth::check() && $role->name === 'Lab Technician') {
             return $next($request);
 
         }
@@ -26,5 +29,7 @@ class LabTechnician
             return redirect()->route('user.login');
 
         }
+    }
+
     }
 }

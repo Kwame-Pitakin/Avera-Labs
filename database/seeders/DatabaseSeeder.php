@@ -27,58 +27,90 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        // Role::factory(5)->create();
-        DB::table('roles')->insert([
-            'role_name' => 'Super Admin',
-            'status' => 1,
-        ]);
-        
-        DB::table('roles')->insert([
-            'role_name' => 'Lab Agent',
-            'status' => 1,
 
-        ]);
-        
-        DB::table('roles')->insert([
-            'role_name' => 'Front Desk',
-            'status' => 1,
-
-        ]);
-        DB::table('roles')->insert([
-            'role_name' => 'Lab Technician',
-            'status' => 1,
-
-        ]);
-        DB::table('roles')->insert([
-            'role_name' => 'Lab Patient',
-            'status' => 1,
-
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
         ]);
 
-       $user = User::factory()->create([
+
+
+
+
+        //     $user->assignRole('Super Admin');
+        $user =  User::create([
             'fullname' => 'Skyller Bolingo',
             'email' => 'skyller@avera.com',
-            'phone'=> '0332273910',
+            'phone' => '0332273910',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'role_id'=>'5',
-            'is_admin' =>'1'
+            'status_id' =>1,
+
         ]);
+        $user->assignRole('Super Admin');
+
+        //  labagent
+        $user =  User::create([
+            'fullname' => 'Afi Dede',
+            'email' => 'dede@avera.com',
+            'phone' => '0333373910',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'status_id' =>1,
+
+        ]);
+        $user->assignRole('Lab Agent');
+
+        //  FrontDesk
+        $user =  User::create([
+            'fullname' => 'Benjamin Mba',
+            'email' => 'benjamin@avera.com',
+            'phone' => '0334473910',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'status_id' =>1,
+
+        ]);
+        $user->assignRole('Front Desk');
+
+        //  Labtech
+        $user =  User::create([
+            'fullname' => 'George Agyemang',
+            'email' => 'george@avera.com',
+            'phone' => '0335573910',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'status_id' =>1,
+
+        ]);
+        $user->assignRole('Lab Technician');
+
+
+        //  patient
+        $user =  User::create([
+            'fullname' => 'Eugenia Mensah',
+            'email' => 'eugenia@avera.com',
+            'phone' => '0336673910',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'status_id' =>1,
+
+        ]);
+        $user->assignRole('Lab Patient');
 
 
 
         Laboratory::factory(20)->create([
-            'user_id'=>$user->id
+            'user_id' => $user->id
         ]);
         Test_category::factory(6)->create();
         Sample::factory(7)->create();
         Test::factory(20)->create();
         Test_price::factory(20)->create();
-        // Laboratory_Test::factory(60)->create();
-        // Sample_Test::factory(20)->create();
-
-       
     }
 }

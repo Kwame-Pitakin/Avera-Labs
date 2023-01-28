@@ -39,6 +39,7 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {  
+        
         $inputVal = $request->all();
 
         $this->validate($request, [
@@ -48,19 +49,22 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
             // $request->session()->regenerate();
-            if (Auth::user()->role_id == 1) {
+            foreach (Auth::user()->roles as $role) {
+                # code...
+            }
+            if ( $role->name === 'Super Admin' ) {
                 return redirect()->route('superadmin')->with('flush_message', 'Welcome to Super Admin Dashboard ');
             }
-            elseif (Auth::user()->role_id == 2) {
+            elseif ($role->name === 'Lab Agent') {
                 return redirect()->route('labagent')->with('flush_message', 'Welcome to Lab Agent Dashboard ');
             }
-            elseif (Auth::user()->role_id == 3) {
+            elseif ($role->name === 'Front Desk') {
                 return redirect()->route('frontDesk')->with('flush_message', 'Welcome to Super Front Desk Dashboard ');
             }
-            elseif (Auth::user()->role_id == 4) {
+            elseif ($role->name === 'Lab Technician') {
                 return redirect()->route('labTechnician')->with('flush_message', 'Welcome to Super lab technician Dashboard ');
             }
-            elseif (Auth::user()->role_id == 5) {
+            elseif ($role->name === 'Lab Patient') {
                 return redirect()->route('patient')->with('flush_message', 'Welcome to Super patient Dashboard ');
             }
             else{

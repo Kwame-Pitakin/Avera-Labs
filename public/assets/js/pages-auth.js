@@ -34,6 +34,24 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          userFullname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter users fullname'
+              },
+              stringLength: {
+                min: 3,
+                message: 'fullname must be more than 3 characters'
+              }
+            }
+          },
+          'role_id': {
+            validators: {
+              notEmpty: {
+                message: 'Please Select Role For User'
+              }
+            }
+          },
           phone: {
             validators: {
               notEmpty: {
@@ -46,6 +64,26 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          userContact: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter users contact number'
+              },
+              stringLength: {
+                min: 9,
+                max:10,
+                message: 'enter a valid phone number'
+              }
+            }
+          },
+          avatar: {
+            validators: {
+              notEmpty: {
+                message: 'Please select an avatar'
+              }
+             
+            }
+          },
           email: {
             validators: {
               notEmpty: {
@@ -54,6 +92,24 @@ document.addEventListener('DOMContentLoaded', function (e) {
               emailAddress: {
                 message: 'Please enter valid email address'
               }
+            }
+          },
+          userEmail: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter users email'
+              },
+              emailAddress: {
+                message: 'Not a valid email, please check'
+              }
+            }
+          },
+          userLocation: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter users location'
+              }
+             
             }
           },
           'email-username': {
@@ -186,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+         
           email: {
             validators: {
               notEmpty: {
@@ -207,6 +264,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+
           password: {
             validators: {
               notEmpty: {

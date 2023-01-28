@@ -1,4 +1,4 @@
-@extends('layouts.masterlayout')
+@extends('content.pages.tests.testslayout')
 @section('title', 'Laboratory Agent Dashboard')
 
 @section('content')
@@ -9,6 +9,12 @@
       z-index: 100;
   }
 </style>
+{{-- @php
+foreach ( Auth::user()->roles as $role) {
+  # code...
+}
+  dd( $role->name )
+@endphp --}}
 <div class="container-xxl flex-grow-1 container-p-y">
   <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-3">
@@ -735,17 +741,5 @@
     <!--/ Marketing Campaigns -->
   </div>
 </div>
-
-
-
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-
-    <!-- Page JS -->
-    <script src="{{ asset('assets/js/dashboards-ecommerce.js') }}"></script>
 
 @endsection

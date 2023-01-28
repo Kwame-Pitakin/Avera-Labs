@@ -1,4 +1,4 @@
-@extends('layouts.masterlayout')
+@extends('content.pages.tests.testslayout')
 @section('title', 'All Laboratories')
 
 
@@ -24,7 +24,7 @@
         <div class="card">
             <div class="row">
                 <div class="col-6">
-                    <h5 class="card-header">Multilingual</h5>
+                    <h5 class="card-header">Showing All Laboratories</h5>
 
                 </div>
                 <div class="col-6">
@@ -36,7 +36,7 @@
             </div>
             <div class="card-datatable table-responsive add-new-record pt-0 row g-2 text-nowrap">
                 @unless(count($laboratories) == 0)
-                    <table class="datatables-ajax  table table-bordered">
+                    <table class=" table table-bordered">
                         <thead>
 
                             <tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             @foreach ($laboratories as $laboratory)
                                 <tr>
-                                    <td>{{ $laboratory->id }}</td>
+                                    <td>{{ ++$i }}</td>
                                     <td>{{ $laboratory->lab_name }}</td>
                                     <td>{{ $laboratory->lab_phone }}</td>
                                     <td>{{ $laboratory->lab_email }}</td>

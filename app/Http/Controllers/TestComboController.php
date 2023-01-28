@@ -26,6 +26,15 @@ class TestComboController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+ function __construct()
+    {
+         $this->middleware('permission:list-combo|create-combo|edit-combo|delete-combo', ['only' => ['index','store']]);
+         $this->middleware('permission:create-combo', ['only' => ['create','store']]);
+         $this->middleware('permission:edit-combo', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete-combo', ['only' => ['destroy']]);
+    }
+
     public function create($id)
     {
 

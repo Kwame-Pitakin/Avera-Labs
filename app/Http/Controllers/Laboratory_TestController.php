@@ -15,6 +15,16 @@ class Laboratory_TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     function __construct()
+    {
+         $this->middleware('permission:list-lab-tests|add-lab-tests|edit-lab-tests|remove-lab-tests', ['only' => ['index','store']]);
+         $this->middleware('permission:add-lab-tests', ['only' => ['create','store']]);
+         $this->middleware('permission:edit-lab-tests', ['only' => ['edit','update']]);
+         $this->middleware('permission:remove-lab-tests', ['only' => ['destroy']]);
+    }
+
+
     public function index()
     {
 

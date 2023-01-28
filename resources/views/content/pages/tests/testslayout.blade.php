@@ -11,6 +11,10 @@
 
     <meta name="description" content="" />
 
+      <!-- alpine js-->
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <!--end alpine-->
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset("assets/img/favicon/favicon.ico") }}" />
 
@@ -27,17 +31,17 @@
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/fontawesome.css') }}" />
-    <link rel="stylesheet" href="assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icons.css') }}" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" />
-    <link rel="stylesheet" href="assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
-    <link rel="stylesheet" href="assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
 
     <!-- Page CSS -->
 
@@ -53,6 +57,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/tagify/tagify.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
+
+    {{-- form auth --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
 
     <style>
         /* Chrome, Safari, Edge, Opera */
@@ -70,8 +77,10 @@ input[type=number] {
 </head>
 
 <body>
+   
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
+       
         <div class="layout-container">
             <!-- Menu -->
             @include('layouts.sections.menu.aside')
@@ -83,6 +92,7 @@ input[type=number] {
                 @include('layouts.sections.menu.navbar')
 
                 <div class="content-wrapper">
+                    <x-flash-message />
                     <!-- Content -->
                     @yield('content')
                 </div>
@@ -117,18 +127,11 @@ input[type=number] {
     <script src="{{ asset('assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script>
 
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+
 
     <!-- Page JS -->
     <script src="{{ asset('assets/js/offcanvas-send-invoice.js') }}"></script>
     <script src="{{ asset('assets/js/app-invoice-add.js') }}"></script>
-
-
-
-
-
-
 
     <!-- Vendors JS -->
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
@@ -136,28 +139,20 @@ input[type=number] {
     <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/bloodhound/bloodhound.js') }}"></script>
 
-
-    <!-- Page JS -->
-    {{-- <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
-       <script src="assets/js/forms-tagify.js"></script>
-       <script src="assets/js/forms-typeahead.js"></script> --}}
-
-
-
-
-
-
-
-
-    <!-- Page JS -->
-
     <script src="{{ asset('assets/js/forms-extras-createTest.js') }}"></script>
-
 
     <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
 
+     <!-- Vendors JS -->
+     <script src="../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+     <script src="../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+     <script src="../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
 
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    {{-- form auth --}}
+    <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
 
 </body>
 

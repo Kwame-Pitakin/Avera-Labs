@@ -18,13 +18,18 @@ class LabPatient
     public function handle(Request $request, Closure $next)
     {
        
-        if (Auth::check() && Auth::user()->role_id == 5) {
-            return $next($request);
-
-        }
-        else{
-            return redirect()->route('user.login');
-
+        
+        foreach (Auth::user()->roles as $role) {
+           
+        
+            if (Auth::check() && $role->name === 'Lab Patient') {
+                return $next($request);
+    
+            }
+            else{
+                return redirect()->route('user.login');
+    
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.masterlayout')
+@extends('content.pages.tests.testslayout')
 @section('title', 'Edit Laboratory')
 
 @section('content')
