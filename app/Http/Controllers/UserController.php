@@ -108,6 +108,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        
         $formFields = $request->validate([
             'fullname' => ['required', 'min:6'],
             'email' =>    ['required', 'email', Rule::unique('users', 'email')],
@@ -125,10 +126,12 @@ class UserController extends Controller
 
         // hush password
         $formFields['password'] = bcrypt($formFields['password']);
-        $formFields['role_id'] = 3;
+        // $formFields['role_id'] = 3;
 
         // create user
-        $user = User::create($formFields);
+       
+
+        $user = User::create($formFields)->assignRole('Lab Agent');;
 
         // login
         auth()->login($user);

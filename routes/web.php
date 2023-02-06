@@ -59,7 +59,7 @@ Route::post('/users',[UserController::class,'store'])->name('user.store');
 // / admin and lab agent creating users Routes
 Route::get('/users/create',[UserController::class,'createUsers'])->name('user.create')->middleware(['auth','verified']);
 
-Route::post('/users',[UserController::class,'storeUsers'])->name('storeUsers');
+Route::post('/created-users',[UserController::class,'storeUsers'])->name('storeUsers');
 
 
 
