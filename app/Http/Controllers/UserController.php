@@ -131,7 +131,7 @@ class UserController extends Controller
         // create user
        
 
-        $user = User::create($formFields)->assignRole('Lab Agent');;
+        $user = User::create($formFields)->assignRole('Lab Agent');
 
         // login
         auth()->login($user);

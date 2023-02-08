@@ -105,9 +105,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        Laboratory::factory(20)->create([
-            'user_id' => $user->id
-        ]);
+        Laboratory::factory(20)->create();
         Test_category::factory(6)->create();
         Sample::factory(7)->create();
         Test::factory(20)->create();

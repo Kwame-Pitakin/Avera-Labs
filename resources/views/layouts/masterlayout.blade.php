@@ -19,6 +19,8 @@ data-template="vertical-menu-template-no-customizer"
 
   <!-- alpine js-->
   <script src="//unpkg.com/alpinejs" defer></script>
+  <script defer src="https://unpkg.com/alpinejs"></script> 
+
   <!--end alpine-->
    <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />

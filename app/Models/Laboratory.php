@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Laboratory extends Model
 {
     use HasFactory;
-    protected $fillable = ['lab_name','lab_address','latitude','longitude','lab_Ghanapost_gps','lab_email','lab_phone','lab_description','lab_status','lab_images_path','lab_logo_path','lab_rating','user_id'];
+    protected $fillable = ['lab_name','lab_address','latitude','longitude','lab_Ghanapost_gps','lab_email','lab_phone','lab_description','lab_status','lab_images_path','lab_logo_path','lab_rating','created_by'];
     protected $casts = [ 
         'all_tests' => 'array' // save songs as a json column
      ];
@@ -27,6 +27,6 @@ class Laboratory extends Model
      }
    //   relationship to user
      public function user(){
-      return $this->belongsTo(User::class,'user_id');
+      return $this->belongsTo(User::class,'created_by');
      }
 }

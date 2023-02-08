@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('laboratories', function (Blueprint $table) {
             $table->id();
             $table->string('lab_name')->unique();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('created_by');
             $table->string('lab_address');
             $table->decimal('latitude', 6,4)->nullable();
             $table->decimal('longitude', 7,4)->nullable();
@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('lab_logo_path')->nullable();
             $table->integer('lab_status');
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

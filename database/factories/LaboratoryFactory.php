@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -33,6 +34,7 @@ class LaboratoryFactory extends Factory
                 'value'=>$this->faker->numberBetween($min = 60, $max = 200),
             ],
             'lab_logo_path'=>$this->faker->imageUrl(250, 250),
+            'created_by'=> 1
             
 
         ];

@@ -39,7 +39,7 @@ class LaboratoriesController extends Controller
              $laboratories = Laboratory::latest()->paginate(10); 
         }
         else {
-            $laboratories = Laboratory::where('user_id',Auth::user()->id )->latest()->paginate(10); 
+            $laboratories = Laboratory::where('created_by',Auth::user()->id )->latest()->paginate(10); 
 
         }
           
@@ -93,7 +93,7 @@ class LaboratoriesController extends Controller
 
         Laboratory::create(
             [
-                'user_id' => auth()->id(),
+                'created_by' => auth()->id(),
                 'lab_name' => $request->lab_name,
                 'lab_email' => $request->lab_email,
                 'lab_phone' => $request->lab_phone,
@@ -132,7 +132,7 @@ class LaboratoriesController extends Controller
             $labDetails = Laboratory::findorfail($id);
         }
         else{
-            $labDetails = Laboratory::where('user_id', Auth::user()->id)->findorfail($id);
+            $labDetails = Laboratory::where('created_by', Auth::user()->id)->findorfail($id);
 
         }
 
