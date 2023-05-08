@@ -452,21 +452,24 @@
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
             
-                                            <form id="formAuthentication" class="add-new-user pt-0" action="{{ route('storeUsers') }}"
+                                            <form id="formAuthentication" class="add-new-user pt-0" action="{{ route('labStuff.store') }}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 {{-- uploading profile image --}}
+
+                                                <input type="text" name="works_at" readonly id="" value="{{ $labDetails->id }}" hidden >
+
                                                 <div class="d-flexX align-items-start align-items-sm-center gap-4">
             
             
-                                                    <img src="{{ asset('assets/img/avatars/2.png') }}" alt="user-avatar"
+                                                    <img src="{{ asset('assets/img/avatars/avatar.jpeg') }}" alt="user-avatar"
                                                         class="d-block rounded" height="100" width="100" id="uploadedAvatar"
                                                         name="avatar" />
             
                                                     <br>
                                                     <div class="button-wrapper">
                                                         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                            <span class="d-none d-sm-block">Upload Avatar</span>
+                                                            <span class="d-none d-sm-block">Select Avatar</span>
                                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                                             <input type="file" id="upload" class="account-file-input" hidden
                                                                 accept="image/png, image/jpeg" name="avatar" required />
@@ -498,27 +501,29 @@
                                                 <div class="mb-3">
                                                   <label class="form-label" for="user-role">User Role</label>
             
-                                                  <select id="user-role" class="select2 form-select" name="role_id">
+                                                  <select id="user-role" class="select2 form-select" name="role">
                                                       <option value="">Select</option>
                                                       </option>
-                                                      <option value="3" {{ old('role_id') == 3 ? 'selected' : '' }}>Front Desk
+                                                      <option value="Front Desk" {{ old('role') === 'Front Desk' ? 'selected' : '' }}> Front Desk
                                                       </option>
-                                                      <option value="4" {{ old('role_id') == 4 ? 'selected' : '' }}>Lab Tecnichian</option>
+                                                      <option value="Lab Technician" {{ old('role') === 'Lab Technician' ? 'selected' : '' }}> Lab Technician </option>
                                                       </option>
                                                   </select>
-                                                  @error('role_id')
+                                                  @error('role')
                                                       <p class="error">{{ $message }}</p>
                                                   @enderror
                                               </div>
             
                                                 <div class="mb-3">
-                                                    <label for="userEmail" class="form-label">userEmail</label>
+                                                    <label for="Email" class="form-label">User Email</label>
                                                     <input type="text" class="form-control" id="userEmail" name="userEmail"
-                                                        placeholder="Enter your userEmail" required value="{{ old('userEmail') }}" />
+                                                        placeholder="Enter your user email" required value="{{ old('userEmail') }}" />
                                                     @error('userEmail')
                                                         <p class="error">{{ $message }}</p>
                                                     @enderror
                                                 </div>
+
+                                              
                                               
                                                 <div class="mb-3 ">
                                                   <label class="userContact" for="userContact">Contact Number</label>
@@ -556,7 +561,126 @@
             
                                     </div>
                                 </div>
+                                
                             </div>
+                            <table class="datatables-ajax  table table-bordered">
+                                <thead>
+        
+                                    <tr>
+                                        <!-- <th></th> -->
+        
+                                        <th>id</th>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+        
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($labDetails->labStuff as $stuff )
+
+                                    
+                                    <tr>
+                                        <td>
+                                            {{ $stuff->id}}
+                                        </td>
+
+                                        <td class="sorting_1">
+                                            <div class="d-flex justify-content-start align-items-center user-name">
+                                                <div class="avatar-wrapper">
+                                                    <div class="avatar avatar-sm me-3">
+                                                        <img src="{{ asset($stuff->avatar) }}" alt="Avatar"
+                                                            class="rounded-circle"
+                                                            onerror="this.error=null;this.src='../assets/img/avatars/avatar.jpeg' ">
+    
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column"><a href="#"
+                                                        class="text-body text-truncate">
+                                                        <span class="fw-semibold">
+                                                            {{ $stuff->fullname }}
+                                                        </span></a>
+                                                    <small class="text-muted">{{ $stuff->email }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                    @if(!empty($stuff->getRoleNames()))
+                                    
+                                    @foreach($stuff->getRoleNames() as $stuffRole)
+
+                               
+                                   
+                                    @if ($stuffRole == 'Front Desk')
+                                        <td>
+                                            <span
+                                                class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i
+                                                    class="bx bx-mobile-alt bx-xs"></i></span>
+                                            
+                                            {{ $stuffRole }}
+                                        </td>
+                                    @elseif ($stuffRole == 'Lab Technician')
+                                        <td>
+                                            <span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i
+                                                class="bx bx-edit bx-xs"></i></span>
+                                            {{ $stuffRole }}
+                                        </td>
+                                     
+                                    @else
+                                        
+                                    <td>
+                                        <span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"></span>
+                                        Role Not Assigned
+                                    </td>
+                                    
+                                    @endif
+
+                                    @endforeach
+                                    @endif
+
+                                    <td>{{ $stuff->phone }}</td>
+                                    @if ($stuff->status_id == 1)
+                                        <td><span style="padding: 3px; border-radius:4px"
+                                                class="bg-label-success">Active</span>
+                                        </td>
+                                    @elseif($stuff->status_id == 2)
+                                        <td><span style="padding: 3px; border-radius:4px"
+                                                class="bg-label-warning">Pending</span></td>
+                                    @elseif($stuff->status_id == 3)
+                                        <td><span style="padding: 3px; border-radius:4px"
+                                                class="bg-label-secondary">Inactive</span></td>
+                                    @endif
+
+
+                                    <td>
+                                        <div class="d-inline-block text-nowrap">
+                                            <a href="#" class="btn btn-sm btn-icon"><i
+                                                    class="bx bx-show"></i></a>
+                                            {{-- <button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button> --}}
+                                            <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                            <div class="dropdown-menu dropdown-menu-end m-0">
+                                                <a href="" class="dropdown-item">view</a>
+                                                <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+                                    </tr>
+                                 
+                                    @endforeach
+                                    
+                                   
+
+                                </tbody>
+
+
+                            </table>
                         </div>
                        
                       
@@ -590,5 +714,6 @@
                 accountUserImage.src = resetImage;
             };
         }
-    </script>
+    </script> 
+
 @endsection()

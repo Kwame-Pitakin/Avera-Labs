@@ -1,3 +1,5 @@
 1. The User Model is for Lab Agent and Lab Admin Only 
 2. We will make different models for Lab front desk and Lab Tech 
-The relation between t
+3.The relation between technician , frontdesk , labtech and lab
+
+4.Add expiry date to combo 

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'labstuff' => [
+            'driver' => 'session',
+            'provider' => 'labstuff',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'labstuff' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\LabStuff::class,
         ],
 
         // 'users' => [
@@ -93,6 +102,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'labstuff' => [
+            'provider' => 'labstuff',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*

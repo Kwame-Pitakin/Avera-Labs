@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('lab_test_status');
             $table->primary(['laboratory_id','test_id']);
             $table->integer('turn_around_time')->nullable();
-
             $table->decimal('test_price');
 
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Laboratory_TestController;
 use App\Http\Controllers\Users\LabPatientController;
 use App\Http\Controllers\Users\SuperAdminController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Laboratory_StuffController;
 use App\Http\Controllers\Users\LabFrontDeskController;
 use App\Http\Controllers\Users\LabTechnicianController;
 
@@ -71,6 +72,14 @@ Route::patch('/users/{id}',[UserController::class,'updateProfile'])->name('user.
 
 // single user profile 
 Route::get('users/{id}', [UserController::class,'show'])->name('user.show')->middleware(['auth','verified']);
+
+
+
+// Laboratory Stuff Routes 
+Route::post('/create-labstuff',[Laboratory_StuffController::class,'store'])->name('labStuff.store');
+Route::view('/stuff-login','auth.labstuffLogin')->name('labStuff.login')->middleware('guest');
+Route::post('/user/labStuffAuthenticate',[LoginController::class,'labstuffLogin'])->name('labstuff.authenticate');
+
 
 
 

@@ -25,6 +25,11 @@ class Laboratory extends Model
      {
       return $this->hasMany(TestCombo::class);
      }
+
+     public function labStuff()
+     {
+       return $this->hasMany(LabStuff::class,'works_at');
+     }
    //   relationship to user
      public function user(){
       return $this->belongsTo(User::class,'created_by');

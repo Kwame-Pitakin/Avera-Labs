@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Verify Email Basic - Pages')
+@section('title', 'Verify Email')
 
 @section('content')
     <!-- Content -->

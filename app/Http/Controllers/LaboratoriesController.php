@@ -6,6 +6,7 @@ use App\Models\Test;
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
 use App\Models\Laboratory_Test;
+use App\Models\LabStuff;
 use App\Models\Sample;
 use App\Models\TestCombo;
 use Illuminate\Support\Facades\Auth;
@@ -126,18 +127,17 @@ class LaboratoriesController extends Controller
     { 
         foreach (Auth::user()->roles as $role) {
             
-        }
 
         if ($role->name === 'Super Admin') {
             $labDetails = Laboratory::findorfail($id);
         }
         else{
             $labDetails = Laboratory::where('created_by', Auth::user()->id)->findorfail($id);
-
         }
 
-        $labDetails = Laboratory::findorfail($id);
+    }
 
+        // $labStuff = LabStuff::all();
 
         $labtests = Laboratory_Test::all();
         $comboSample = Sample::get();
@@ -268,11 +268,9 @@ class LaboratoriesController extends Controller
 
     private function storeLogo($request)
     {
-        // if ($request->hasFile('lab_logo_path')) {
         $newImageName = uniqid() . '-' . $request->lab_name . '.' . $request->lab_logo_path->extension();
 
         return $request->lab_logo_path->move('images', $newImageName);
-        // }
 
 
     }

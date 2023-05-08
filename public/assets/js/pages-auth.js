@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
-          'role_id': {
+          'role': {
             validators: {
               notEmpty: {
                 message: 'Please Select Role For User'
@@ -76,14 +76,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
-          avatar: {
-            validators: {
-              notEmpty: {
-                message: 'Please select an avatar'
-              }
-             
-            }
-          },
+         
           email: {
             validators: {
               notEmpty: {

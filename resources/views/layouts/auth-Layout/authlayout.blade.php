@@ -59,7 +59,7 @@
 
   <body>
     <!-- Content -->
-    <x-flash-message />
+    {{-- <x-flash-message /> --}}
     
     @yield('content')
     <!-- / Content -->

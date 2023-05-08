@@ -79,12 +79,10 @@ class Laboratory_TestController extends Controller
                 'test_id' =>'required|unique:laboratory_test,test_id,NULL,NULL,laboratory_id,'.$request->laboratory_id,
                 'turn_around_time' =>'required',
                 'test_price' =>'required',
-                // 'term'  => 'unique:terms,term,NULL,id,taxonomy,category'
 
             ]
             );
             if($validator->fails()){
-                    // dd($validator);
                     return redirect(route('labtest.create',$request->laboratory_id))
                             ->withErrors($validator)
                             ->withInput();
@@ -107,8 +105,6 @@ class Laboratory_TestController extends Controller
             $testToLab->turn_around_time =$turn_around_time;
             $testToLab->test_price =$test_price;
             $testToLab->lab_test_status = 1;
-
-
 
             $testToLab->save();
 

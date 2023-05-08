@@ -7,7 +7,7 @@
 <style>
     .error {
             color: red;
-            font-size: 5px;
+            font-size: 12px;
         }
 </style>
 <div class="authentication-wrapper authentication-cover">
@@ -94,7 +94,7 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Welcome to Avera Labs</h4>
+          <h4 class="mb-2">Welcome to Avera Labs Agent Login</h4>
           <br>
           <!-- <p class="mb-4">Please sign-in to your account and start the adventure</p> -->
   

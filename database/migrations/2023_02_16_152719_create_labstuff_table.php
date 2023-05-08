@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('labfrontdesks', function (Blueprint $table) {
+        Schema::create('labstuff', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
             $table->string('email')->unique();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('works_at');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role');
             $table->string('avatar')->nullable();
             $table->string('user_location')->nullable();
             $table->string('user_Ghanapost_gps')->nullable();
@@ -29,7 +30,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('works_at')->references('id')->on('laboratories')->onDelete('cascade');
-
         });
     }
 
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('labfrontdesks');
+        Schema::dropIfExists('labstuff');
     }
 };

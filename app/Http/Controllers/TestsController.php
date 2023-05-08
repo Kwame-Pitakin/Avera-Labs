@@ -94,26 +94,6 @@ class TestsController extends Controller
       
         
 
-        // foreach ($data as $validata) {
-
-        //     $testname=$validata['test_name'];
-        
-        //     $validator= Validator::make($validata,
-           
-        //     [
-        //         $testname  => 'required|unique:tests|max:255'
-        //     ]
-    
-        // );
-        // if($validator->fails()){
-        //     dd($validator);
-        //    }
-      
-        // }
-       
-
-
-        // dd($request->input());
 
 
         foreach ($data as $prop) {
@@ -123,26 +103,12 @@ class TestsController extends Controller
             $target_gender = $prop['target_gender'];
             $requiredsample = $prop['requiredsample'];
             $accurate_from = $prop['accurate_from'];
-
-            $datasave = [
-                'test_name' => $test_name,
-                'test_category_id' => $test_category_id,
-                'target_gender' => $target_gender,
-                'accurate_from' => $accurate_from,
-
-                'test_sample_id' => $requiredsample,
-                // 'test_category_id'=>2,
-                // 'target_gender'=>'all',
-                'test_status' => 1,
-            ];
-
             
             $testData = new Test();
             $testData->test_name = $test_name;
             $testData->test_category_id = $test_category_id;
             $testData->target_gender = $target_gender;
             $testData->test_status = 1;
-            // $testData->test_sample_id = 1;
             $testData->accurate_from = $accurate_from;
 
             $testData->save();
@@ -151,13 +117,6 @@ class TestsController extends Controller
 
                 $testData->test_sample()->attach($sample);
             }
-
-
-            //  $savepivot =  DB::table('tests')->insert($datasave);
-
-            //  dd($savepivot);
-
-            // $savepivot->test_sample()->attach($requiredsample);
 
         }
 

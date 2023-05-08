@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LabStuff;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,6 +37,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:labstuff')->except('logout');
+
     }
     public function authenticate(Request $request)
     {  
@@ -78,6 +81,27 @@ class LoginController extends Controller
 
     }
 
+
+    public function labstuffLogin(Request $request)
+    {
+        $stuff = new LabStuff();
+
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('labstuff')->attempt($request->only(['email','password']), $request->get('remember'))){
+
+            //  return redirect()->intended('/admin/dashboard');
+
+            foreach ($stuff->getRoleNames() as $stuffRole) {
+                dd($stuffRole);
+            }
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
 
 
 
