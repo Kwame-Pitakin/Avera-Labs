@@ -110,6 +110,7 @@
                 placeholder="Enter your email"
                 autofocus
                 value="{{ old('email')  }}" 
+                required
               />
               @error('email')
               <p class="error">{{ $message }}</p>
@@ -136,6 +137,7 @@
                   aria-describedby="password"
                   required
                   {{ old('password') }}
+                  
                 />
                
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
